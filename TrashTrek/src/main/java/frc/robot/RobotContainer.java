@@ -17,11 +17,18 @@ import edu.wpi.first.wpilibj2.command.Command;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
+  //xbox controller
+  public static final XboxController m_xboxController = new XboxController(0);
+
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivebase m_db = new Drivebase();
+  private final Elevator m_elevator = new Elevator();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final MaxHeight m_maxHeight = new MaxHeight(m_elevator);
+  private final MidHeight m_midHeight = new MidHeight(m_elevator);
+  private final MinHeight m_minHeight = new MinHeight(m_elevator);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -44,6 +51,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return m_forward.withTimeout(3);
   }
 }
